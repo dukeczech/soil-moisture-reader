@@ -1,0 +1,70 @@
+Runing = 80-120mA
+Deep sleep (display) = 11.2mA
+Deep sleep (sensors up) = 2.5mA
+Deep sleep = 0.5mA
+
+662 = 1850
+
+
+Create any sensor:
+
+mqtt:
+  - sensor:
+      unique_id: deckenfluter_0
+      name: "Test value 1"
+      state_topic: "test/testtopic1"
+      value_template: "{{ value_json.primes[0] }}"
+      qos: 1
+  - sensor:
+      unique_id: kaminlampe_0
+      name: "Test value 2"
+      state_topic: "test/testtopic"
+      qos: 1
+  - sensor:
+      unique_id: kugellampe_0
+      name: "Voltage"
+      state_topic: "moisturereader/number/v0/state"
+
+Subscribe the value with:
+
+mosquitto_pub -h 192.168.2.222 -p 1883 -u local -P mqtt -t test/testtopic -m "123456"
+mosquitto_pub -h 192.168.2.222 -p 1883 -u local -P mqtt -t test/testtopic1 -m '{"primes": [8, 3, 5, 7, 11, 13]}'
+
+Process the data:
+https://www.home-assistant.io/docs/configuration/templating/#processing-incoming-data
+
+
+
+SELECT * FROM states
+WHERE metadata_id IN (SELECT metadata_id FROM states_meta WHERE =0)
+
+SELECT * FROM states WHERE metadata_id='44'
+
+
+Output:
+
+HC4051 LIBRARY VERSION: 0.3.0
+MQTTRemote: Not connected. Will subscribe once connected.
+
+Connecting to wifi..........
+Connected to wifi [192.168.2.27]
+MQTTRemote: Client not connected. Trying to connect... success!!!
+MQTTRemote: About to publish message 'online' on topic '2544576/status'...: 1
+MQTTRemote: About to publish message '30000000.000000' on topic 'moisturereader/number/ch0/state'...: 1
+Sensor 0 output: 5
+MQTTRemote: About to publish message '5.000000' on topic 'moisturereader/number/s0/state'...: 1
+Sensor 1 output: 0
+MQTTRemote: About to publish message '0.000000' on topic 'moisturereader/number/s1/state'...: 1
+Sensor 2 output: 1
+Sensor 3 output: 1
+Sensor 4 output: 100
+Sensor 5 output: 99
+Sensor 6 output: 99
+Sensor 7 output: -7
+Sensor voltage: 3.954
+MQTTRemote: About to publish message '3.858000' on topic 'moisturereader/number/v0/state'...: 1
+MQTTRemote: About to publish message '{"availability_topic":"2544576/status","unique_id":"2544576_moisturereader_s0","device":{"identifiers":"hw_2544576","name":"Moisture reader","sw_version":"1.0.0","model":"d1mini","manufacturer":"karel.hebik"},"name":"Sensor 0","platform":"sensor","min":1,"max":100,"force_update":false,"retain":false,"device_class":"moisture","mode":"box","unit_of_measurement":"%","state_class":"measurement","state_topic":"moisturereader/number/s0/state","command_topic":"moisturereader/number/s0/command"}' on topic 'homeassistant/number/moisturereader/s0/config'...: 1
+MQTTRemote: About to publish message '{"availability_topic":"2544576/status","unique_id":"2544576_moisturereader_s1","device":{"identifiers":"hw_2544576","name":"Moisture reader","sw_version":"1.0.0","model":"d1mini","manufacturer":"karel.hebik"},"name":"Sensor 1","platform":"sensor","min":1,"max":100,"force_update":false,"retain":false,"device_class":"moisture","mode":"box","unit_of_measurement":"%","state_class":"measurement","state_topic":"moisturereader/number/s1/state","command_topic":"moisturereader/number/s1/command"}' on topic 'homeassistant/number/moisturereader/s1/config'...: 1
+MQTTRemote: About to publish message '{"availability_topic":"2544576/status","unique_id":"2544576_moisturereader_v0","device":{"identifiers":"hw_2544576","name":"Moisture reader","sw_version":"1.0.0","model":"d1mini","manufacturer":"karel.hebik"},"name":"Sensor 7","platform":"number","min":0,"max":5,"force_update":false,"retain":false,"state_topic":"moisturereader/number/v0/state","command_topic":"moisturereader/number/v0/command"}' on topic 'homeassistant/number/moisturereader/v0/config'...: 1
+MQTTRemote: About to publish message '{"availability_topic":"2544576/status","unique_id":"2544576_moisturereader_ch0","device":{"identifiers":"hw_2544576","name":"Moisture reader","sw_version":"1.0.0","model":"d1mini","manufacturer":"karel.hebik"},"name":"Check interval","platform":"number","min":1,"max":86400,"force_update":false,"retain":false,"state_topic":"moisturereader/number/ch0/state","command_topic":"moisturereader/number/ch0/command"}' on topic 'homeassistant/number/moisturereader/ch0/config'...: 1
+Going to deep sleep
