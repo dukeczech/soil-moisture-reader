@@ -15,6 +15,10 @@ void Time::loop() {
     m_timeClient.update();
 }
 
+int Time::getHours() {
+    return m_timeClient.getHours();
+}
+
 String Time::getTime() {
     return m_timeClient.getFormattedTime();
 }

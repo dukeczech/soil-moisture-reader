@@ -9,6 +9,13 @@ void LCD::init() {
     lcd.init();
 }
 
+void LCD::backlight(const bool on) {
+    if (on)
+        lcd.backlight();
+    else
+        lcd.noBacklight();
+}
+
 void LCD::displayValues(const int a, const int b, const int c, const int d) {
     lcd.clear();
     lcd.printf("A: %3d%%  B: %3d%%", a, b);
@@ -17,7 +24,7 @@ void LCD::displayValues(const int a, const int b, const int c, const int d) {
 }
 
 void LCD::print(const String& text, const uint8_t row, const bool clear) {
-    if(clear) lcd.clear();
+    if (clear) lcd.clear();
     lcd.setCursor(0, row);
     lcd.print(text);
 }

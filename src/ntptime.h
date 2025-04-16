@@ -18,6 +18,8 @@ public:
     static void init();
     static void loop();
 
+    static int getHours();
+
     static String getTime();
     static String getDate();
 };

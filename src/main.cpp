@@ -210,6 +210,12 @@ void loop() {
                 Time::loop();
 
                 LCD::print("    " + Time::getTime(), 0, true);
+
+                // Turn off the backlight during the night
+                if (Time::getHours() > 19 || Time::getHours() < 7)
+                    LCD::backlight(false);
+                else
+                    LCD::backlight(true);
             }
         }
     }
